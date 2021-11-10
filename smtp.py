@@ -2,7 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 sender = 'daddymrrobot@gmail.com'
-password = 'TheToni1999'
+password = ''
 receivers = ['daddymrrobot@gmail.com', 'aa20.iaboyte86@iespabloserrano.com']
 body = 'Esto es un correo de prueba'
 

